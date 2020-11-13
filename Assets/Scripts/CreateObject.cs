@@ -7,6 +7,8 @@ public class CreateObject : MonoBehaviour
     public GameObject PrefabCyl;
     public GameObject PrefabCub;
     public GameObject TempParent;
+    public GameObject Casting;
+    float ObjCounter;
 
     public Camera Cam;
     public float range = 100f;
@@ -15,13 +17,21 @@ public class CreateObject : MonoBehaviour
 
     // Start is called before the first frame update
     void Update() {
-        if (Input.GetKeyDown("1"))
+        if (Input.GetKeyDown("1") && ObjCounter < 3)
         {
             Instantiate(PrefabCub, Spawnpoint.position, Spawnpoint.rotation);
+
+            ObjCounter += 1;
+        }
+        else
+        {
+            Casting.SetActive(true); 
         }
 
-        if (Input.GetKeyDown("2")) {
+        if (Input.GetKeyDown("2") && ObjCounter < 3) {
             Instantiate(PrefabCyl, Spawnpoint.position, Spawnpoint.rotation);
+
+            ObjCounter += 1;
         }
 
         if (Input.GetButtonDown("Fire1"))
@@ -32,6 +42,17 @@ public class CreateObject : MonoBehaviour
         if (Input.GetButtonDown("Fire2"))
         {
             ShrinkShoot();
+        }
+
+        if (Input.GetKeyDown("q"))
+        {
+            RaycastHit kill;
+            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out kill, range))
+            {
+                Target target = kill.transform.GetComponent<Target>();
+                target.Kill = true;
+                ObjCounter -= 1;
+            }
         }
 
         if (Input.GetKeyDown("e"))
@@ -90,13 +111,5 @@ public class CreateObject : MonoBehaviour
 
     }
 
-    void Grab()
-    {
 
-    }
-
-    void LetGo()
-    {
-
-    }
 }
