@@ -27,7 +27,7 @@ public class CreateObject : MonoBehaviour
             Instantiate(PrefabCub, Spawnpoint.position, Spawnpoint.rotation);
 
             ObjCounter += 1;
-            CurrentValue -= 100f;
+            Manalower(100f);
         }
         else if (Input.GetKeyDown("1") && (ObjCounter == 3 || currentValue < 100)) {
             StartCoroutine("CantCast");
@@ -74,27 +74,6 @@ public class CreateObject : MonoBehaviour
                 ObjCounter -= 1;
             }
         }
-
-        if (Input.GetKeyDown("e")) {
-            RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit)) {
-                hit.transform.GetComponent<Rigidbody>().useGravity = false;
-                hit.transform.GetComponent<Rigidbody>().isKinematic = true;
-                hit.transform.position = Spawnpoint.transform.position;
-                hit.transform.rotation = Spawnpoint.transform.rotation;
-                hit.transform.parent = TempParent.transform;
-            }
-        }
-
-        if (Input.GetKeyUp("e")) {
-            RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit)) {
-                hit.transform.GetComponent<Rigidbody>().useGravity = true;
-                hit.transform.GetComponent<Rigidbody>().isKinematic = false;
-                hit.transform.position = Spawnpoint.transform.position;
-                hit.transform.parent = null;
-            }
-        }
     }
 
     void GrowShoot() {
@@ -127,6 +106,15 @@ public class CreateObject : MonoBehaviour
         set {
             currentValue = value;
             slider.value = currentValue;
+        }
+    }
+
+    void Manalower(float LowerBy)
+    { 
+        if (LowerBy > 0)
+        {
+            CurrentValue -= 1;
+            LowerBy = -1;
         }
     }
 }
