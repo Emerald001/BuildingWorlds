@@ -11,103 +11,71 @@ public class CreateObject : MonoBehaviour
     public GameObject TempParent;
     public GameObject cantCast;
     public Slider slider;
+    public Animator Left;
+    public Animator Right;
     public float LowerBy = 0f;
-    bool Casting;
+    public bool Casting;
     float ObjCounter;
+    public int layerMask = 1 << 10;
 
     public Camera Cam;
     private float currentValue = 0f;
+    private PlayerMovement player;
+    private PickUpObject pickUp;
 
     private void Start()
     {
-        CurrentValue = 1000f;
+        CurrentValue = 500f;
     }
 
     void Update()
     {
+        layerMask = ~layerMask;
+
+        player = transform.GetComponentInParent<PlayerMovement>();
+        pickUp = transform.GetComponent<PickUpObject>();
+
         Manalower();
 
-        if (Input.GetKeyDown("1") && ObjCounter < 3 && currentValue > 100 && !Casting)
+        if (!pickUp.carrying)
         {
-            Instantiate(PrefabCub, Spawnpoint.position, Spawnpoint.rotation);
+            if (Input.GetKeyDown("1")) Cast(PrefabCub);
+            if (Input.GetKeyDown("2")) Cast(PrefabCyl);
+            if (Input.GetKeyDown("3")) Cast(PrefabPlnk);
 
-            ObjCounter += 1;
-            LowerBy += 100f;
-            StartCoroutine(Castin());    
-        }
-        else if (Input.GetKeyDown("1") && (ObjCounter == 3 || currentValue < 100))
-        {
-            StartCoroutine("CantCast");
-        }
-
-        if (Input.GetKeyDown("2") && ObjCounter < 3 && currentValue > 100 && !Casting)
-        {
-            Instantiate(PrefabCyl, Spawnpoint.position, Spawnpoint.rotation);
-
-            ObjCounter += 1;
-            LowerBy += 100f;
-        }
-        else if (Input.GetKeyDown("2") && (ObjCounter == 3 || currentValue < 100))
-        {
-            StartCoroutine(CantCast());
-        }
-
-        if (Input.GetKeyDown("3") && ObjCounter < 3 && currentValue > 100 && !Casting)
-        {
-            Instantiate(PrefabPlnk, Spawnpoint.position, Spawnpoint.rotation);
-
-            ObjCounter += 1;
-            LowerBy += 100f;
-        }
-        else if (Input.GetKeyDown("3") && (ObjCounter == 3 || currentValue < 100))
-        {
-            StartCoroutine(CantCast());
-        }
-
-        if (Input.GetButtonDown("Fire1"))
-        {
-            GrowShoot();
-        }
-
-        if (Input.GetButtonDown("Fire2"))
-        {
-            ShrinkShoot();
-        }
-
-        if (Input.GetKeyDown("q"))
-        {
-            RaycastHit kill;
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out kill))
+            if (Input.GetKeyDown("q"))
             {
-                Target target = kill.transform.GetComponent<Target>();
-                target.Kill = true;
+                RaycastHit kill;
+                if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out kill, Mathf.Infinity, layerMask))
+                {
+                    IsTarget target = kill.transform.GetComponent<IsTarget>();
+                    target.Kill = true;
 
-                LowerBy -= 100f + target.pressed * 10f;
+                    LowerBy -= 100f + target.size * 10f;
 
-                ObjCounter -= 1;
+                    ObjCounter -= 1;
+
+                    Left.SetTrigger("Delete");
+                    Right.SetTrigger("Delete");
+                }
             }
         }
     }
 
-    void GrowShoot()
+    void Cast(GameObject input)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit))
-        {
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null && CurrentValue > 10) LowerBy += 10;
-            if (target != null && CurrentValue > 10) target.Grow();
+        if (ObjCounter < 3 && currentValue > 100 && !Casting && player.isGrounded) {
+            Instantiate(input, Spawnpoint.position, Spawnpoint.rotation);
         }
-    }
-    void ShrinkShoot()
-    {
-        RaycastHit hit;
-        if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit))
-        {
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null) LowerBy -= 10;
-            if (target != null) target.Shrink();
+        else if (ObjCounter == 3 || currentValue < 100) {
+            StartCoroutine("CantCast");
         }
+
+        ObjCounter += 1;
+        LowerBy += 100f;
+        StartCoroutine(Castin());
+
+        input = null;
     }
 
     IEnumerator CantCast()
@@ -120,18 +88,19 @@ public class CreateObject : MonoBehaviour
     IEnumerator Castin()
     {
         Casting = true;
-        yield return new WaitForSeconds(3);
+
+        Left.SetTrigger("Activate");
+        Right.SetTrigger("Activate");
+
+        yield return new WaitForSeconds(1.2f);
+
         Casting = false;
     }
 
     public float CurrentValue
     {
-        get
-        {
-            return currentValue;
-        }
-        set
-        {
+        get { return currentValue; }
+        set {
             currentValue = value;
             slider.value = currentValue;
         }

@@ -64,10 +64,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\ButtonCode.cs" />
     <Compile Include="Assets\Scripts\CreateObject.cs" />
+    <Compile Include="Assets\Scripts\CubeTarget.cs" />
+    <Compile Include="Assets\Scripts\CylTarget.cs" />
+    <Compile Include="Assets\Scripts\GrowShrink.cs" />
+    <Compile Include="Assets\Scripts\IsTarget.cs" />
     <Compile Include="Assets\Scripts\MouseLook.cs" />
+    <Compile Include="Assets\Scripts\PLankTarget.cs" />
+    <Compile Include="Assets\Scripts\PickUpAble.cs" />
+    <Compile Include="Assets\Scripts\PickUpObject.cs" />
     <Compile Include="Assets\Scripts\PlayerMovement.cs" />
-    <Compile Include="Assets\Scripts\Target.cs" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Users/an3s0/Documents/UnityProjects/2019.4.15f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
