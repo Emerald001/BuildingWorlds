@@ -4,32 +4,47 @@ using UnityEngine;
 
 public class ButtonCode : MonoBehaviour
 {
-    float GoDown = 0f;
+    float standardPosition;
+    Collider Object;
+    public bool onButton;
     public GameObject movePiece;
 
-    // Start is called before the first frame update
-    private void OnTriggerEnter(Collider other)
+    public GameObject movable;
+
+    private void Start()
     {
-        GoDown += 10;
+        standardPosition = movePiece.transform.position.y;
+        Object = null;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        Object = other;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        GoDown -= 10;
+        Object = null;
     }
 
     private void Update()
     {
-        if (GoDown > 0)
-        {
-            movePiece.transform.position = new Vector3(transform.position.x, movePiece.transform.position.y - .03f, transform.position.z);
-            GoDown -= 1;
-        }
+        ButtonDown(Object);
+    }
 
-        if (GoDown < 0)
+    void ButtonDown(Collider hit)
+    {
+        if (hit != null)
         {
-            movePiece.transform.position = new Vector3(transform.position.x, movePiece.transform.position.y + .03f, transform.position.z);
-            GoDown += 1;
+            movePiece.transform.position = new Vector3(transform.position.x, standardPosition - .2f, transform.position.z);
+
+            movable.transform.GetComponent<Movable>().moving = true;
+        }
+        else
+        {
+            movePiece.transform.position = new Vector3(transform.position.x, standardPosition, transform.position.z);
+
+            movable.transform.GetComponent<Movable>().moving = false;
         }
     }
 }

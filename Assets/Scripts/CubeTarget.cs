@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeTarget : IsTarget
 {
-    Vector3 scaleChange = new Vector3(0.006f, 0.006f, 0.006f);
+    Vector3 scaleChange = new Vector3(0.003f, 0.003f, 0.003f);
     bool Grown;
 
     void Start()
