@@ -12,7 +12,6 @@ public class PickUpObject : MonoBehaviour
     public Camera Cam;
     public GameObject TempParent;
     public GameObject CarriedObject;
-    
 
     void Update()
     {

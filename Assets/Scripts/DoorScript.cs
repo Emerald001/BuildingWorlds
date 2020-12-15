@@ -18,14 +18,14 @@ public class DoorScript : Movable
         {
             if (transform.position.y > standardPosition - transform.localScale.y)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - .01f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - 2f * Time.deltaTime, transform.position.z);
             }
         }
         else
         {
             if (transform.position.y < standardPosition)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + .01f, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + 2f * Time.deltaTime, transform.position.z);
             }
         }
     }

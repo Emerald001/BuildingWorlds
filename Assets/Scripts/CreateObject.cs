@@ -5,10 +5,7 @@ using UnityEngine;
 public class CreateObject : MonoBehaviour
 {
     public Transform Spawnpoint;
-    public GameObject PrefabCyl;
     public GameObject PrefabCub;
-    public GameObject PrefabPlnk;
-    public GameObject TempParent;
     public GameObject cantCast;
     public Slider slider;
     public Animator Left;
@@ -25,7 +22,7 @@ public class CreateObject : MonoBehaviour
 
     private void Start()
     {
-        CurrentValue = 500f;
+        CurrentValue = slider.value;
     }
 
     void Update()
@@ -39,9 +36,7 @@ public class CreateObject : MonoBehaviour
 
         if (!pickUp.carrying)
         {
-            if (Input.GetKeyDown("1")) Cast(PrefabCub);
-            if (Input.GetKeyDown("2")) Cast(PrefabCyl);
-            if (Input.GetKeyDown("3")) Cast(PrefabPlnk);
+            if (Input.GetMouseButtonDown(2)) Cast(PrefabCub);
 
             if (Input.GetKeyDown("q"))
             {
@@ -66,15 +61,14 @@ public class CreateObject : MonoBehaviour
     {
         if (ObjCounter < 3 && currentValue > 100 && !Casting && player.isGrounded) {
             Instantiate(input, Spawnpoint.position, Spawnpoint.rotation);
+
+            ObjCounter += 1;
+            LowerBy += 100f;
+            StartCoroutine(Castin());
         }
         else if (ObjCounter == 3 || currentValue < 100) {
             StartCoroutine("CantCast");
         }
-
-        ObjCounter += 1;
-        LowerBy += 100f;
-        StartCoroutine(Castin());
-
         input = null;
     }
 

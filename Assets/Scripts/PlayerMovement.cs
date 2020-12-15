@@ -22,21 +22,6 @@ public class PlayerMovement : MonoBehaviour
     {
         Cast = transform.GetComponentInChildren<CreateObject>();
 
-        if (Input.GetKeyDown("e"))
-        {
-            RaycastHit hit;
-            if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out hit, pickuprange))
-            {
-                IsTarget target = hit.transform.GetComponent<IsTarget>();
-
-                if (target != null)
-                {
-                    if (target.size > 0) speed -= target.size * 2;
-                    else speed = 12f;
-                }
-            }
-        }
-
         if (!Cast.Casting)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -45,9 +30,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 velocity.y = -2f;
             }
-
-            if (velocity.y < -2) speed = 3f;
-            else speed = 12f;
 
             float x = Input.GetAxis("Horizontal");
             float z = Input.GetAxis("Vertical");

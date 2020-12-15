@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubeTarget : IsTarget
 {
-    Vector3 scaleChange = new Vector3(0.003f, 0.003f, 0.003f);
+    Vector3 scaleChange = new Vector3(1f, 1f, 1f);
     bool Grown;
 
     void Start()
@@ -19,7 +19,7 @@ public class CubeTarget : IsTarget
     {
         if (transform.localScale.y < 1f && !Grown)
         {
-            transform.localScale += scaleChange;
+            transform.localScale += scaleChange * Time.deltaTime;
         }
         else if(!Grown)
         {
