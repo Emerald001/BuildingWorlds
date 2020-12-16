@@ -6,6 +6,8 @@ public class MainMenu : MonoBehaviour
 {
     public GameObject MenuCanvas;
     public GameObject OptionsCanvas;
+    public Vector3 position;
+    public bool Continue;
 
     public LevelLoader Level;
 
@@ -15,9 +17,16 @@ public class MainMenu : MonoBehaviour
         OptionsCanvas.SetActive(true);
     }
 
-    public void Play()
+    public void NewGame()
     {
         Level.LoadNextLevel();
+    }
+
+    public void LoadGame()
+    {
+        PlayerData data = SaveSystem.LoadPlayer();
+
+        SceneManager.LoadScene(data.currentLevel);
     }
 
     public void Quit()

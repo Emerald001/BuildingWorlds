@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +14,6 @@ public class PauseMenu : MonoBehaviour
     public float Collectables;
     public float MaxCollectables;
 
-    // Update is called once per frame
     void Update()
     {
         CollectedText.text = Collectables + " / " + MaxCollectables;
@@ -51,7 +49,7 @@ public class PauseMenu : MonoBehaviour
 
     public void LoadMenu()
     {
-        StartCoroutine(LoadLevel());
+        StartCoroutine(loadMenu());
     }
 
     public void QuitGame()
@@ -60,9 +58,10 @@ public class PauseMenu : MonoBehaviour
         Application.Quit();
     }
 
-    IEnumerator LoadLevel()
+    IEnumerator loadMenu()
     {
-        Transition.SetTrigger("Start");
+        GameObject.Find("Player").GetComponent<PlayerMovement>().SaveGame();
+
         Time.timeScale = 1f;
 
         yield return new WaitForSeconds(transitionDuration);
