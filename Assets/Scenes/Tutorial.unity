@@ -3383,9 +3383,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8a50307d6382ff4981df24409e49cfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onButton: 0
+  input: 0
   movePiece: {fileID: 708593559}
-  movable: {fileID: 931977714}
 --- !u!65 &792948515
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -3856,7 +3855,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moving: 0
-  standardPosition: 0
+  Input: {fileID: 792948513}
+  movementSpeed: 2
 --- !u!65 &931977716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -4087,7 +4087,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86cfed6b37c31e047af49bb6c26093a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mouseSensitivity: 1000
+  mouseSensitivity: 300
   player: {fileID: 1807182992}
   ObjectCreator: {fileID: 1699098510}
 --- !u!1 &969081986
@@ -4370,6 +4370,12 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 978131800}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1017333233 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 576875145991002714, guid: b90504944ce1eca4d9e2e40eb92c2b84,
+    type: 3}
+  m_PrefabInstance: {fileID: 1560715172234959795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044934891
 GameObject:
   m_ObjectHideFlags: 0
@@ -8461,7 +8467,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moving: 0
-  standardPosition: 0
+  Input: {fileID: 1017333233}
+  movementSpeed: 5
 --- !u!65 &2071312745
 BoxCollider:
   m_ObjectHideFlags: 0

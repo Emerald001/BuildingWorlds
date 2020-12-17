@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class ButtonCode : MonoBehaviour
+public class ButtonCode : CircuitPart 
 {
     float standardPosition;
-    Collider Object;
-    public bool onButton;
+    private Collider Object;
     public GameObject movePiece;
-
-    public GameObject movable;
 
     private void Start()
     {
@@ -38,13 +33,13 @@ public class ButtonCode : MonoBehaviour
         {
             movePiece.transform.position = new Vector3(transform.position.x, standardPosition - .2f, transform.position.z);
 
-            movable.transform.GetComponent<Movable>().moving = true;
+            input = true;
         }
         else
         {
             movePiece.transform.position = new Vector3(transform.position.x, standardPosition, transform.position.z);
 
-            movable.transform.GetComponent<Movable>().moving = false;
+            input = false;
         }
     }
 }

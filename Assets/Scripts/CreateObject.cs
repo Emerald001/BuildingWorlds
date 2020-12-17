@@ -44,14 +44,17 @@ public class CreateObject : MonoBehaviour
                 if (Physics.Raycast(Cam.transform.position, Cam.transform.forward, out kill, Mathf.Infinity, layerMask))
                 {
                     IsTarget target = kill.transform.GetComponent<IsTarget>();
-                    target.Kill = true;
+                    if (target != null)
+                    {
+                        target.Kill = true;
 
-                    LowerBy -= 100f + target.size * 10f;
+                        LowerBy -= 100f + target.size * 10f;
 
-                    ObjCounter -= 1;
+                        ObjCounter -= 1;
 
-                    Left.SetTrigger("Delete");
-                    Right.SetTrigger("Delete");
+                        Left.SetTrigger("Delete");
+                        Right.SetTrigger("Delete");
+                    }
                 }
             }
         }

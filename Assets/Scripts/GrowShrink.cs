@@ -31,6 +31,13 @@ public class GrowShrink : MonoBehaviour
             if (target != null && create.CurrentValue > 10) target.Grow();
             if (target != null && create.CurrentValue > 10) Left.SetTrigger("Grow");
             if (target != null && create.CurrentValue > 10) create.LowerBy += 10;
+
+            SchaapTarget Schaap = hit.transform.GetComponent<SchaapTarget>();
+            if (Schaap != null)
+            {
+                Schaap.Grow();
+                Left.SetTrigger("Grow");
+            }
         }
     }
     void ShrinkShoot()
@@ -42,6 +49,13 @@ public class GrowShrink : MonoBehaviour
             if (target != null) target.Shrink();
             if (target != null) Right.SetTrigger("Shrink");
             if (target != null) create.LowerBy -= 10;
+
+            SchaapTarget Schaap = hit.transform.GetComponent<SchaapTarget>();
+            if (Schaap != null)
+            {
+                Schaap.Shrink();
+                Right.SetTrigger("Shrink");
+            }
         }
     }
 }

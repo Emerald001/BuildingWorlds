@@ -1,31 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DoorScript : Movable
 {
-    public float standardPosition;
+    public GameObject Input;
+
+    private float standardPosition;
+    public float movementSpeed = 2f;
 
     void Start()
     {
         standardPosition = transform.position.y;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        if (moving)
+        if (Input.GetComponent<CircuitPart>().input)
         {
             if (transform.position.y > standardPosition - transform.localScale.y)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y - 2f * Time.deltaTime, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y - movementSpeed * Time.deltaTime, transform.position.z);
             }
         }
         else
         {
             if (transform.position.y < standardPosition)
             {
-                transform.position = new Vector3(transform.position.x, transform.position.y + 2f * Time.deltaTime, transform.position.z);
+                transform.position = new Vector3(transform.position.x, transform.position.y + movementSpeed * Time.deltaTime, transform.position.z);
             }
         }
     }

@@ -12,6 +12,7 @@ public class PowerUp : MonoBehaviour
     {
         slider.maxValue += 100;
         slider.value += 100;
+        slider.transform.localScale = new Vector3(2, slider.transform.localScale.y, slider.transform.localScale.z);
 
         value = GameObject.Find("Player/MainCamera/BlockSpawn").GetComponent<CreateObject>();
 

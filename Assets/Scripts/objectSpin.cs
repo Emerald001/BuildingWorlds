@@ -15,7 +15,7 @@ public class objectSpin : MonoBehaviour
     {
         standardPosition = transform.position;
     }
-    // Update is called once per frame
+
     void Update()
     {
         transform.Rotate(spinX, spinY, spinZ);

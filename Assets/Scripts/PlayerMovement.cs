@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -9,7 +6,6 @@ public class PlayerMovement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundMask;
     private CreateObject Cast;
-    private MainMenu MainMenu;
     public Camera Cam;
 
     Vector3 velocity;
@@ -25,24 +21,8 @@ public class PlayerMovement : MonoBehaviour
         SaveSystem.SavePlayer(this);
     }
 
-    public void LoadGame()
-    {
-        PlayerData data = SaveSystem.LoadPlayer();
-
-        SceneManager.LoadScene(data.currentLevel);
-
-        Vector3 position;
-        position.x = data.position[0];
-        position.y = data.position[1];
-        position.z = data.position[2];
-
-        transform.position = position;
-    }
-
     private void Start()
     {
-        if (MainMenu.Continue) transform.position = MainMenu.position;
-
         SaveGame();
     }
 
